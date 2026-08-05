@@ -1,3 +1,4 @@
+alert("script.js 로드");
 // =========================
 // HTML 요소 가져오기
 // =========================
@@ -42,8 +43,11 @@ imageInput.addEventListener("change", function () {
 
     reader.onload = function (e) {
 
+         alert("reader.onload 실행");
+
         // 사진 미리보기
         previewImage.src = e.target.result;
+        testOCR(e.target.result);
         previewImage.style.display = "block";
 
         // 분석 중 표시
@@ -159,5 +163,18 @@ function isAllowedCalculator(maker, modelName) {
     }
 
     return false;
+
+}
+
+async function testOCR(image) {
+
+    console.log("OCR 시작");
+
+    const result = await Tesseract.recognize(
+        image,
+        "eng"
+    );
+
+    console.log(result.data.text);
 
 }
