@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시험용 공학용계산기 확인 시스템</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>📱 시험용 공학용계산기 확인 시스템</h1>
+
+    <p class="description">
+        감독이 계산기 사진을 촬영하면<br>
+        허용기종 여부를 자동으로 확인합니다.
+    </p>
+
+    <button class="camera-btn">
+        📷 사진 촬영
+    </button>
+
+    <button class="gallery-btn">
+        🖼 사진 선택
+    </button>
+    <input type="file" id="imageInput" accept="image/*" capture="environment" hidden>
+
+<div class="preview-area">
+    <img id="previewImage" src="" alt="촬영한 계산기 사진">
+</div>
+<div class="result-card">
+
+    <h2>분석 결과</h2>
+
+    <div class="result-row">
+        <span>제조사</span>
+
+        <div class="check-area">
+            <strong id="maker">-</strong>
+
+            <label>
+                <input type="checkbox" id="makerCheck">
+                계산기와 동일함
+            </label>
+        </div>
+    </div>
+
+    <div class="result-row">
+        <span>모델명</span>
+
+        <div class="check-area">
+            <strong id="model">-</strong>
+
+            <label>
+                <input type="checkbox" id="modelCheck">
+                계산기와 동일함
+            </label>
+        </div>
+    </div>
+
+    <div class="result-row">
+        <span>허용 여부</span>
+        <strong id="result">⏳ 확인 대기</strong>
+    </div>
+
+</div>
+
+    <p class="demo">
+        Demo Version 0.1
+    </p>
+
+</div>
+
+<script src="./calculators.js"></script>
+<script src="./script.js"></script>
+
+</body>
+</html>
