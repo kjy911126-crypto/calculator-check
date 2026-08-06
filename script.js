@@ -56,6 +56,7 @@ imageInput.addEventListener("change", function () {
         model.textContent = "분석 중...";
         result.textContent = "⏳ 분석 중...";
 
+        // 마지막에 OCR 시작
         testOCR(e.target.result);
 
     };
@@ -226,12 +227,15 @@ async function testOCR(image) {
         console.log("모델번호:", detectedNumber);
 
         // 화면에 표시
-        maker.textContent = detectedMaker || "인식 실패";
-        model.textContent = detectedNumber;
-        alert("화면 변경 완료");
-    };
+maker.textContent = detectedMaker || "인식 실패";
+model.textContent = getModelName(detectedNumber);
 
-}
+console.log("★★★★★ OCR 끝 ★★★★★");
+
+};   // img.onload 끝
+
+}    // testOCR 끝
+
 function getModelName(number) {
 
     const modelMap = {
