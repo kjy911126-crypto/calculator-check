@@ -220,6 +220,30 @@ const cleanText = text
 console.log("정리 후");
 console.log(cleanText);
 
+let detectedMaker = "";
+
+if (cleanText.includes("CASIO")) {
+    detectedMaker = "CASIO";
+}
+else if (cleanText.includes("SHARP")) {
+    detectedMaker = "SHARP";
+}
+else if (cleanText.includes("CANON")) {
+    detectedMaker = "CANON";
+}
+
+console.log("제조사:", detectedMaker);
+
+const match = cleanText.match(/\d{3}/);
+
+let detectedNumber = "";
+
+if (match) {
+    detectedNumber = match[0];
+}
+
+console.log("모델번호:", detectedNumber);
+
     };
 
 }
