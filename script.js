@@ -1,4 +1,3 @@
-alert("script.js 로드");
 // =========================
 // HTML 요소 가져오기
 // =========================
@@ -170,11 +169,41 @@ async function testOCR(image) {
 
     console.log("OCR 시작");
 
-    const result = await Tesseract.recognize(
-        image,
-        "eng"
-    );
+    // 캔버스 생성
+    const img = new Image();
+    img.src = image;
 
-    console.log(result.data.text);
+    img.onload = async function () {
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // 원본 크기
+        canvas.width = img.width;
+        canvas.height = img.height * 0.3;   // 상단 30%
+
+        // 상단만 잘라서 그림
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height * 0.3,
+            0,
+            0,
+            img.width,
+            img.height * 0.3
+        );
+
+        const cropImage = canvas.toDataURL();
+
+        const result = await Tesseract.recognize(
+            cropImage,
+            "eng"
+        );
+
+        console.log(result.data.text);
+
+    };
 
 }
