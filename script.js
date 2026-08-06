@@ -57,25 +57,6 @@ imageInput.addEventListener("change", function () {
         model.textContent = "분석 중...";
         result.textContent = "⏳ 분석 중...";
 
-        // 2초 후 결과 표시 (데모)
-setTimeout(() => {
-
-    const aiResult = {
-        maker: "CASIO",
-        model: "FX-570ES PLUS"
-    };
-
-    maker.textContent = aiResult.maker;
-    model.textContent = aiResult.model;
-
-    // 체크박스 초기화
-    makerCheck.checked = false;
-    modelCheck.checked = false;
-
-    // 결과는 다시 확인 대기
-    result.textContent = "⏳ 확인 대기";
-
-}, 2000);
 
     };
 
@@ -247,8 +228,6 @@ async function testOCR(image) {
         // 화면에 표시
         maker.textContent = detectedMaker || "인식 실패";
         model.textContent = getModelName(detectedNumber);
-
-}
 
     };
 
