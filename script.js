@@ -1,4 +1,8 @@
 // =========================
+console.log("★★★★★ SCRIPT VERSION 0.2 ★★★★★");
+// =======================
+// HTML 요소 가져오기
+// =========================
 // HTML 요소 가져오기
 // =========================
 const cameraBtn = document.querySelector(".camera-btn");
@@ -169,7 +173,6 @@ async function testOCR(image) {
 
     console.log("OCR 시작");
 
-    // 캔버스 생성
     const img = new Image();
     img.src = image;
 
@@ -180,11 +183,12 @@ async function testOCR(image) {
 
         // 원본 크기
         canvas.width = img.width * 2;
-        canvas.height = img.height * 0.18 * 2;  // 상단 18%
+        canvas.height = img.height * 0.18 * 2;
 
-        // 상단만 잘라서 그림
-
+        // 전처리
         ctx.filter = "contrast(250%) grayscale(100%)";
+
+        // 상단 18%만 확대
         ctx.drawImage(
             img,
             0,
@@ -200,49 +204,52 @@ async function testOCR(image) {
         const cropImage = canvas.toDataURL();
 
         const result = await Tesseract.recognize(
-    cropImage,
-    "eng",
-    {
-        tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-+."
-    }
-);
+            cropImage,
+            "eng",
+            {
+                tessedit_char_whitelist:
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-+."
+            }
+        );
 
         const text = result.data.text.toUpperCase();
 
-console.log("OCR 원본");
-console.log(text);
+        console.log("OCR 원본");
+        console.log(text);
 
-const cleanText = text
-    .replace(/\n/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
+        const cleanText = text
+            .replace(/\n/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
 
-console.log("정리 후");
-console.log(cleanText);
+        console.log("정리 후");
+        console.log(cleanText);
 
-let detectedMaker = "";
+        // 제조사 찾기
+        let detectedMaker = "";
 
-if (cleanText.includes("CASIO")) {
-    detectedMaker = "CASIO";
-}
-else if (cleanText.includes("SHARP")) {
-    detectedMaker = "SHARP";
-}
-else if (cleanText.includes("CANON")) {
-    detectedMaker = "CANON";
-}
+        if (cleanText.includes("CASIO")) {
+            detectedMaker = "CASIO";
+        }
+        else if (cleanText.includes("SHARP")) {
+            detectedMaker = "SHARP";
+        }
+        else if (cleanText.includes("CANON")) {
+            detectedMaker = "CANON";
+        }
 
-console.log("제조사:", detectedMaker);
+        console.log("제조사:", detectedMaker);
 
-const match = cleanText.match(/\d{3}/);
+        // 모델번호 찾기
+        const match = cleanText.match(/\d{3}/);
 
-let detectedNumber = "";
+        let detectedNumber = "";
 
-if (match) {
-    detectedNumber = match[0];
-}
+        if (match) {
+            detectedNumber = match[0];
+        }
 
-console.log("모델번호:", detectedNumber);
+        console.log("모델번호:", detectedNumber);
 
     };
 
