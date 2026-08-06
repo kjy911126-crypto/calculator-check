@@ -46,7 +46,6 @@ imageInput.addEventListener("change", function () {
 
     reader.onload = function (e) {
 
-         alert("reader.onload 실행");
 
         // 사진 미리보기
         previewImage.src = e.target.result;
@@ -171,7 +170,6 @@ function isAllowedCalculator(maker, modelName) {
 
 async function testOCR(image) {
 
-    console.log("OCR 시작");
 
     const img = new Image();
     img.src = image;
@@ -214,17 +212,11 @@ async function testOCR(image) {
 
         const text = result.data.text.toUpperCase();
 
-        console.log("OCR 원본");
-        console.log(text);
-
         const cleanText = text
             .replace(/\n/g, " ")
             .replace(/\s+/g, " ")
             .trim();
 
-        console.log("정리 후");
-        console.log(cleanText);
-        console.log("여기까지 왔다");
 
         // 제조사 찾기
         let detectedMaker = "";
@@ -251,6 +243,22 @@ async function testOCR(image) {
         }
 
         console.log("모델번호:", detectedNumber);
+
+        // 화면에 표시
+        maker.textContent = detectedMaker || "인식 실패";
+        model.textContent = getModelName(detectedNumber);
+
+        function getModelName(number) {
+
+    const modelMap = {
+        "570": "FX-570ES PLUS",
+        "580": "FX-580ES PLUS",
+        "991": "FX-991ES PLUS"
+    };
+
+    return modelMap[number] || number;
+
+}
 
     };
 
