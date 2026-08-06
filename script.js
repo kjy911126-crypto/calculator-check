@@ -49,7 +49,6 @@ imageInput.addEventListener("change", function () {
 
         // 사진 미리보기
         previewImage.src = e.target.result;
-        testOCR(e.target.result);
         previewImage.style.display = "block";
 
         // 분석 중 표시
@@ -57,6 +56,7 @@ imageInput.addEventListener("change", function () {
         model.textContent = "분석 중...";
         result.textContent = "⏳ 분석 중...";
 
+        testOCR(e.target.result);
 
     };
 
@@ -228,7 +228,7 @@ async function testOCR(image) {
         // 화면에 표시
         maker.textContent = detectedMaker || "인식 실패";
         model.textContent = getModelName(detectedNumber);
-
+        alert("화면 변경 완료");
     };
 
 }
