@@ -224,6 +224,7 @@ async function testOCR(image) {
 
         console.log("정리 후");
         console.log(cleanText);
+        console.log("여기까지 왔다");
 
         // 제조사 찾기
         let detectedMaker = "";
