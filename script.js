@@ -248,18 +248,17 @@ async function testOCR(image) {
         maker.textContent = detectedMaker || "인식 실패";
         model.textContent = getModelName(detectedNumber);
 
-        function getModelName(number) {
+}
+
+    };
+
+}
+function getModelName(number) {
 
     const modelMap = {
         "570": "FX-570ES PLUS",
         "580": "FX-580ES PLUS",
         "991": "FX-991ES PLUS"
     };
-
     return modelMap[number] || number;
-
-}
-
-    };
-
 }
