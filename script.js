@@ -227,7 +227,7 @@ async function testOCR(image) {
 
         // 화면에 표시
         maker.textContent = detectedMaker || "인식 실패";
-        model.textContent = getModelName(detectedNumber);
+        model.textContent = detectedNumber;
         alert("화면 변경 완료");
     };
 
