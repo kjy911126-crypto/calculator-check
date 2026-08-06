@@ -200,11 +200,25 @@ async function testOCR(image) {
         const cropImage = canvas.toDataURL();
 
         const result = await Tesseract.recognize(
-            cropImage,
-            "eng"
-        );
+    cropImage,
+    "eng",
+    {
+        tessedit_char_whitelist: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-+."
+    }
+);
 
-        console.log(result.data.text);
+        const text = result.data.text.toUpperCase();
+
+console.log("OCR 원본");
+console.log(text);
+
+const cleanText = text
+    .replace(/\n/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+console.log("정리 후");
+console.log(cleanText);
 
     };
 
