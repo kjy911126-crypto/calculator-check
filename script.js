@@ -179,10 +179,12 @@ async function testOCR(image) {
         const ctx = canvas.getContext("2d");
 
         // 원본 크기
-        canvas.width = img.width;
-        canvas.height = img.height * 0.18;   // 상단 18%
+        canvas.width = img.width * 2;
+        canvas.height = img.height * 0.18 * 2;  // 상단 18%
 
         // 상단만 잘라서 그림
+
+        ctx.filter = "contrast(250%) grayscale(100%)";
         ctx.drawImage(
             img,
             0,
@@ -191,8 +193,8 @@ async function testOCR(image) {
             img.height * 0.18,
             0,
             0,
-            img.width,
-            img.height * 0.18
+            img.width * 2,
+            img.height * 0.18 * 2
         );
 
         const cropImage = canvas.toDataURL();
