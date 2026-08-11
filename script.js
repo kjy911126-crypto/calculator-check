@@ -97,8 +97,56 @@ function showLoading(){
 // OCR (다음 Part에서 구현)
 // =======================================================
 
+// =======================================================
+// OCR 실행
+// =======================================================
+
 async function startOCR(image){
 
     console.log("OCR 시작");
+
+    const img = new Image();
+    img.src = image;
+
+    img.onload = async function(){
+
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // 상단 18%만 확대
+        canvas.width = img.width * 2;
+        canvas.height = img.height * 0.18 * 2;
+
+        ctx.filter = "contrast(250%) grayscale(100%)";
+
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height * 0.18,
+            0,
+            0,
+            img.width * 2,
+            img.height * 0.18 * 2
+        );
+
+        const cropImage = canvas.toDataURL();
+
+        const ocrResult = await Tesseract.recognize(
+            cropImage,
+            "eng"
+        );
+
+        const text = ocrResult.data.text
+            .toUpperCase()
+            .replace(/\n/g," ")
+            .replace(/\s+/g," ")
+            .trim();
+
+        console.log("OCR 결과");
+        console.log(text);
+
+    };
 
 }
