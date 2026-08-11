@@ -153,6 +153,10 @@ async function startOCR(image){
         console.log("제조사 =", detectedMaker);
         console.log("모델번호 =", detectedNumber);
 
+        // 화면 표시
+        maker.textContent = detectedMaker || "인식 실패";
+        model.textContent = getModelName(detectedNumber);
+
     };
 
 }
@@ -177,3 +181,14 @@ async function startOCR(image){
     return "";
     }
 
+function getModelName(number){
+
+    const modelMap = {
+        "570": "FX-570ES PLUS",
+        "580": "FX-580ES PLUS",
+        "991": "FX-991ES PLUS"
+    };
+
+    return modelMap[number] || number;
+
+}
