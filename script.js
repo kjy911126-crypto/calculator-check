@@ -147,6 +147,33 @@ async function startOCR(image){
         console.log("OCR 결과");
         console.log(text);
 
+        const detectedMaker = extractMaker(text);
+        const detectedNumber = extractModelNumber(text);
+
+        console.log("제조사 =", detectedMaker);
+        console.log("모델번호 =", detectedNumber);
+
     };
 
 }
+
+    function extractMaker(text){
+
+    if(text.includes("CASIO")) return "CASIO";
+    if(text.includes("SHARP")) return "SHARP";
+    if(text.includes("CANON")) return "CANON";
+
+    return "";
+    }
+
+    function extractModelNumber(text){
+
+    const match = text.match(/\d{3}/);
+
+    if(match){
+        return match[0];
+    }
+
+    return "";
+    }
+
